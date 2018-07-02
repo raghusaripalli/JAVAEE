@@ -1,19 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+	let xhr;
+	function create(){
+		xhr = new XMLHttpRequest();
+	}
+	function getSum(){
+		let num1 = document.getElementById("num1").value;
+		let num2 = document.getElementById("num2").value;
+		let url="add.jsp?num1="+num1+"&num2="+num2;
+		xhr.open("GET",url,true);
+		xhr.onreadystatechange=doUpdate;
+		xhr.send(null);
+	}
+	function doUpdate(){
+		if (xhr.readyState==4){
+			if (xhr.status==200){
+			let res = document.getElementById("res");
+			console.log(xhr.responseText);
+			res.value=xhr.responseText;
+			}
+			else{
+				alert("Error: "+xhr.statusText);
+			}
+		}
+	}
+</script>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Add using AJAX</title>
 </head>
-<body>
-
+<body onload="create()">
 <!-- form to display difference between regular get/post request and ajax request -->
+<h1>Add using AJAX</h1>
 <form method="get" action="add.html">
-
-First Num: <input name="num1" type="number" /><br>
-Second Num: <input name="num2" type="number" /><br>
-Result: <input id="res" type="number" /><br>
-<input type="button" value="Add numbers" />
-<input type=submit value="submit" />
+First Num: <input id="num1" name="num1" type="number" /><br>
+Second Num: <input id="num2" name="num2" type="number" /><br>
+Result: <input id="res" /><br>
+<input type="button" value="Add numbers" onclick="getSum()" />
+<input type="submit" value="submit" />
 </form>
 </body>
 </html>
