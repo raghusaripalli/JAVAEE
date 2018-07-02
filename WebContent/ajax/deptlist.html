@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+	let xhr, id, name, mgr_name, loc, error;
+	function create(){
+		xhr = new XMLHttpRequest();
+		id = document.getElementById("deptid");
+		name = document.getElementById("deptname");
+		mgr_name = document.getElementById("mgrname");
+		loc = document.getElementById("locid");
+		error = document.getElementById("error");
+	}
+	function getDetails(){
+		let url = "deptlist.jsp?deptid="+id.value;
+		xhr.open("GET",url, true);
+		xhr.onreadystatechange = doUpdate;
+		xhr.send(null);
+	}
+	function doUpdate(){
+		if (xhr.readyState==4 && xhr.status==200){
+			let data = xhr.responseText;
+			let details = eval("("+ data +")");
+			if (details.error){
+				name.innerHTML="";
+				mgr_name.innerHTML="";
+				loc.innerHTML="";
+				error.innerHTML = details.error;
+			}
+			else{
+				name.innerHTML=details.department_name;
+				mgr_name.innerHTML=details.manager_id;
+				loc.innerHTML=details.location_id;
+				error.innerHTML="";
+			}
+		}
+	}
+	function clearFields(){
+		name.innerHTML="";
+		mgr_name.innerHTML="";
+		loc.innerHTML="";
+		error.innerHTML="";
+	}
+	
+	
+</script>
+<meta charset=ISO-8859-1>
+<title>Department Details</title>
+</head>
+<body onload="create()">
+	<h1>Department Details</h1>
+	Department Id: <input type="number" name="deptid" id="deptid" onblur="getDetails()"/>
+	<input type="button" value="clear" onclick="clearFields()"/><p/>
+	<p id="error" style="color:red;"></p>
+	Department Name: <span id="deptname"></span><br>
+	Manager Name: <span id="mgrname"></span><br>
+	location id: <span id="locid"></span><br>
+</body>
+</html>
