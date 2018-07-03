@@ -1,4 +1,3 @@
-<%@ page contentType="text/plain;"%>
 <%
 	int n1, n2;
 	n1 = Integer.parseInt(request.getParameter("num1"));

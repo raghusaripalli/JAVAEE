@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add two integers</title>
+</head>
+<script type="text/javascript" src="jquery-3.3.1.js"></script>
+<script>
+	function addNumbers(){
+		$.get("../add.jsp",
+			{num1: $("#num1").val(),
+			num2: $("#num2").val()},
+			function(result){
+				if(result)
+					$("#res").val(result)
+				else
+					alert("Error");
+			});
+	}
+</script>
+<body>
+<h1>Add 2 integers using JQuery</h1>
+<table>
+	<tr>
+		<td>First Number</td>
+		<td><input type="number" id="num1"/></td>
+	</tr>
+	<tr>
+		<td>Second Number</td>
+		<td><input type="number" id="num2"/></td>
+	</tr>
+	<tr>
+		<td>Result</td>
+		<td><input type="number" id="res" readonly/></td>
+	</tr>
+	<tr>
+		<td colspan=2><input type="button" value="Add Numbers" onclick="addNumbers()"/></td>
+	</tr>
+</table>
+</body>
+</html>
