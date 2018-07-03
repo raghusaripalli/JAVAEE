@@ -4,7 +4,41 @@
 <meta charset="ISO-8859-1">
 <title>Jobs</title>
 </head>
+<script type="text/javascript" src="jquery-3.3.1.js"></script>
+<script>
+	$(function(){
+		$.getJSON("jobs.jsp",{},function(data){
+			$.each(data, function(index,job){
+				$("#jobs").append("<option value='"+job.id+"'>"+job.title+"</option>");
+			});
+		});
+	});
+	
+	function populateEmps(){
+		$("#employees").contents().remove(); // clear contents of emp list
+		$.getJSON("employees.jsp",{job_id: $("#jobs").val()},function(data){
+			$.each(data, function(index, name){
+				$("#employees").append("<option>"+ name +"</option>")
+			})
+		})
+	}
+</script>
 <body>
+<form action="" id="form1">
 <h1>Get Employees Name based on their Job</h1>
+<table>
+	<tr>
+		<td valign="top" width="200px">
+		<h3>Jobs</h3>
+		<select id="jobs" size=10 ondblClick="populateEmps()"></select>
+		<b>Double Click on Job to get employees of that job</b>
+		</td>
+		<td valign="top" width="200px">
+		<h3>Employees</h3>
+		<select style="width:200px" id="employees" size=10></select>
+		</td>
+	</tr>
+</table>
+</form>
 </body>
 </html>
