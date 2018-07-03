@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Get Employees</title>
+</head>
+<script type="text/javascript" src="jquery-3.3.1.js"></script>
+<script>
+	$(function(){
+		$("#table1").hide()
+		$.getJSON("department.jsp",{},function(data){
+			$.each(data, function(index, dept){
+				$("#depts").append("<option value='"+dept.id+"'>"+dept.name+"</option>");
+			})
+		})
+	})
+	function fetchEmpDetails(){
+		$.getJSON("empbydept.jsp",{dept_id:$("#depts").val()}, function(data){
+			if (data.length>0){
+				$("#table1").contents().remove();
+				$("#table1").append("<tr><th>ID</th><th>Full Name</th><th>Hire Date</th><th>Salary</th><th>Designation</th></tr>")
+				$.each(data, function(index, e){
+					$("#table1").append("<tr><td>"+e.id+"</td><td>"+e.fullname+"</td><td>"+e.doj+"</td><td>"+e.salary+"</td><td>"+e.job+"</td></tr>")
+					$("#table1").show()
+				})
+			}
+			else{
+				$("#table1").hide()
+				$("span").html("No records Found");
+			}
+		})
+	}
+</script>
+<body>
+<form action="">
+<h1>Get Employees by Department using JQuery</h1>
+Department Name: <select id="depts" onchange="fetchEmpDetails()">
+<option value="">Select a Department</option>
+</select><br />
+<table id="table1" border="1" style="width:100%">
+</table>
+<span></span>
+</form>
+</body>
+</html>
