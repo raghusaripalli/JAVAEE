@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Make Upper</title>
+<script>
+	let wsocket, inpText, outText;
+	
+	function init(){
+		wsocket = new WebSocket("ws://localhost:8888/webdemo/upper");
+		wsocket.onmessage = showMessage;
+		inpText = document.getElementById("inpText");
+		outText = document.getElementById("outText");
+	}
+	
+	function showMessage(evt){
+		outText.innerHTML = evt.data;
+	}
+	
+	function sendText(){
+		wsocket.send(inpText.value);
+	}
+	
+</script>
+</head>
+<body onload="init()">
+<h1>Convert to UpperCase</h1>
+Enter String:
+<input type="text" id="inpText"/>
+<input type="button" value="Upper" onclick="sendText()"/>
+<p id="outText"></p>
+</body>
+</html>

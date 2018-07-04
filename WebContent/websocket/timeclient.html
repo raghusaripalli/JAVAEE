@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Time Update</title>
+</head>
+<script>
+	let wsocket, outText;
+	function init(){
+		wsocket = new WebSocket("ws://localhost:8888/webdemo/time");
+		wsocket.onmessage = showTime;
+		outText = document.getElementById("outText");
+	}
+	function showTime(evnt){
+		outText.innerHTML = evnt.data;
+	}
+	
+</script>
+<body onload="init()">
+<h1>Date &amp; Time using Web Sockets</h1>
+<h1 id="outText"></h1>
+</body>
+</html>
