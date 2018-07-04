@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Details</title>
+</head>
+<script>
+	let wsocket, empid;
+	function init(){
+		wsocket = new WebSocket("ws://localhost:8888/webdemo/emp_details");
+		wsocket.onmessage = showDetails;
+		empid = document.getElementById("empid");
+	}
+	function showDetails(evnt){
+		let d = eval("("+evnt.data+")");
+		document.getElementById("empname").innerHTML = d.name;
+		document.getElementById("empsal").innerHTML = d.salary;
+		document.getElementById("doj").innerHTML = d.hiredate;
+	}
+	function sendEmpId(){
+		wsocket.send(empid.value);
+	}
+</script>
+<body onload="init()">
+<h1>Get Employee Details using WebSocket</h1>
+Employee ID: <input type="number" id="empid"/>
+<input type="button" value="Info" onclick="sendEmpId()"/>
+<table border="1">
+	<tr>
+		<td>Name</td>
+		<td id="empname"></td>
+	</tr>
+	<tr>
+		<td>Salary</td>
+		<td id="empsal"></td>
+	</tr>
+	<tr>
+		<td>HireDate</td>
+		<td id="doj"></td>
+	</tr>
+</table>
+</body>
+</html>
