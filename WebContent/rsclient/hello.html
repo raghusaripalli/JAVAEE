@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>RESTful Service</title>
+</head>
+<script type="text/javascript" src="../ajax/jquery/jquery-3.3.1.js"></script>
+<script>
+	function getData(){
+		$.get("http://localhost:8888/webdemo/rest/hello",{},function(data){
+			$("#message").html(data);
+		})
+	}
+</script>
+<body>
+<input type="button" value="Get Message" onclick="getData()"/>
+<h1 id="message"></h1>
+</body>
+</html>

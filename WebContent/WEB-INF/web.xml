@@ -4,6 +4,26 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+  
+<!--   Jersey -->
+  
+  <servlet>
+		<servlet-name>Jersey</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>rest</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Jersey</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+  
+  
+<!--   Metro -->
+  
   <servlet>
     <servlet-name>MetroServlet</servlet-name>
     <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
