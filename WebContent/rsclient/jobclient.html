@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Job Client</title>
+</head>
+<script type="text/javascript" src="../ajax/jquery/jquery-3.3.1.js"></script>
+<script>
+	function getJob(){
+		$.getJSON("http://localhost:8888/webdemo/rest/jobs/"+ $("#jobid").val(),{},function(resp){
+			$("#jobtitle").val(resp.title);
+		})
+	}
+</script>
+<body>
+<h1>Job Client</h1>
+Job ID: <br />
+<input type="text" id="jobid"/><p />
+Job Title: <br />
+<input type="text" id="jobtitle"/><p />
+<input type="button" value="GET" onclick="getJob()"/>
+</body>
+</html>
