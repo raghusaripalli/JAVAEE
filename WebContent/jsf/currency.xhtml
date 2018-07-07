@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<head>
+<meta />
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Currency Conversion</h1>
+	<h:form>
+	Amount: <h:inputText value="#{currencyBean.amount}"></h:inputText>
+		<p />
+		<h:commandButton value="convert"
+			actionListener="#{currencyBean.convert}"></h:commandButton>
+		<p />
+		<h2>
+			<h:outputText value="#{currencyBean.result}"></h:outputText>
+		</h2>
+	</h:form>
+</body>
+</html>
