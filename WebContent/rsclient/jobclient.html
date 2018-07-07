@@ -7,9 +7,76 @@
 <script type="text/javascript" src="../ajax/jquery/jquery-3.3.1.js"></script>
 <script>
 	function getJob(){
-		$.getJSON("http://localhost:8888/webdemo/rest/jobs/"+ $("#jobid").val(),{},function(resp){
-			$("#jobtitle").val(resp.title);
-		})
+		$.ajax("http://localhost:8888/webdemo/rest/jobs/"+ $("#jobid").val(),
+			{
+				'success': function(resp){
+					$("#jobtitle").val(resp.title);
+				},
+				'error': function(err){
+					if(err.status == 404){
+						alert("Sorry!! Job ID not found")
+						$("#jobid").val("")
+						$("#jobtitle").val("")
+					}
+					else
+						alert("Sorry!! Could not fetch job details")
+				},
+				'dataType': 'json'
+			});
+	}
+	function addJob(){
+		$.ajax("http://localhost:8888/webdemo/rest/jobs",
+			{
+				'method': 'POST',
+				'success': function(resp){
+					alert("Job Added Successfully")
+					$("#jobtitle").val("")
+					
+				},
+				'error': function(err){
+					alert("Sorry! Could not add job")
+				},
+				'data': {'id': $("#jobid").val(), 'title':$("#jobtitle").val()}
+			});
+	}
+	function updateJob(){
+		$.ajax("http://localhost:8888/webdemo/rest/jobs/"+ $("#jobid").val(),
+			{
+				'method':'PUT',
+				'data':{'title':$("#jobtitle").val()},
+				'success': function(resp){
+					alert("Job updated successfully!!")
+					$("#jobtitle").val("")
+				},
+				'error': function(err){
+					if(err.status == 404){
+						alert("Sorry!! Job ID not found")
+						$("#jobid").val("")
+					}
+						
+					else
+						alert("Sorry!! Could not update job title")
+				},
+			});
+	}
+	function deleteJob(){
+		$.ajax("http://localhost:8888/webdemo/rest/jobs/"+ $("#jobid").val(),
+			{
+				'method':'DELETE',
+				'success': function(resp){
+					alert("Deleted job Successfully!")
+					$("#jobid").val("")
+					$("#jobtitle").val("")
+				},
+				'error': function(err){
+					if(err.status == 404){
+						alert("Sorry!! Job ID not found")
+						$("#jobid").val("")
+					}
+					else
+						alert("Sorry!! Could not fetch job details")
+				}
+			});
 	}
 </script>
 <body>
@@ -19,5 +86,8 @@ Job ID: <br />
 Job Title: <br />
 <input type="text" id="jobtitle"/><p />
 <input type="button" value="GET" onclick="getJob()"/>
+<input type="button" value="ADD" onclick="addJob()"/>
+<input type="button" value="UPDATE" onclick="updateJob()"/>
+<input type="button" value="DELETE" onclick="deleteJob()"/>
 </body>
 </html>
