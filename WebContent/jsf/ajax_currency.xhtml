@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+<title>Currency Conversion</title>
+<h:head>
+</h:head>
+</head>
+<body>
+	<h2>Currency Conversion</h2>
+
+	<h:form>
+	 Amount : 
+	   <h:inputText id="amount" value="#{currencyBean.amount}"
+			validatorMessage="Amount is invalid. Minimum is 1000">
+			<f:validateDoubleRange minimum="1000"></f:validateDoubleRange>
+		</h:inputText>
+		<h:message for="amount"></h:message>
+		<p />
+		<h:commandButton value="Convert"
+			actionListener="#{currencyBean.convert}">
+			<f:ajax execute="amount" render="result"></f:ajax>
+		</h:commandButton>
+		<p />
+		<h2>
+			<h:outputText id="result" value="#{currencyBean.result}" />
+		</h2>
+	</h:form>
+
+
+</body>
+</html>
