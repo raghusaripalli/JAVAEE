@@ -12,6 +12,7 @@
 }
 </style>
 </head>
+<h:head></h:head>
 <body>
 	<h2>Employees</h2>
 	<h:form>
@@ -20,12 +21,14 @@
 			<f:validateRequired></f:validateRequired>
 		</h:inputText>
 		<h:commandButton value="Search"
-			actionListener="#{employeesBean.getEmployees}"></h:commandButton>
+			actionListener="#{employeesBean.getEmployees}">
+			<f:ajax execute="name" render="result"></f:ajax>
+			</h:commandButton>
 		<br />
 		<h:message for="name"></h:message>
 		<p />
 	</h:form>
-	<h:dataTable rendered="#{employeesBean.result != null}" headerClass="colhead"
+	<h:dataTable id="result"  headerClass="colhead"
 		value="#{employeesBean.result}" var="emp" border="1">
 		<h:column>
 			<f:facet name="header">ID</f:facet>#{emp.id}</h:column>
